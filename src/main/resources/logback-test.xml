@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <property name="LOG_PATH" value="src/main/logs"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{dd-MM-yyyy HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level %logger{36}.%M) - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+    <appender name="INFILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/myLog.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n
+            </pattern>
+        </encoder>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>${LOG_PATH}/archived/log_%d{dd-MM-yyyy-SSS}.log</fileNamePattern>
+        <maxHistory>10</maxHistory>
+        <totalSizeCap>1MB</totalSizeCap>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>1MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="INFILE"/>
+    </root>
+    <!--<logger name="LogPotok" additivity="false" level="info">-->
+    <!--<appender-ref ref="STDOUT" />-->
+    <!--</logger>-->
+
+</configuration>
